@@ -1,19 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
-    <meta charset="utf-8">
-    <title>MyTest PixiJS</title>
-
+    <meta charset="UTF-8">
+    <title>HELLO, PixiJS</title>
     <!-- CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js" integrity="sha512-Ch/O6kL8BqUwAfCF7Ie5SX1Hin+BJgYH4pNjRqXdTEqMsis1TUYg+j6nnI9uduPjGaj7DN4UKCZgpvoExt6dkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <script src="https://unpkg.com/@pixi/sound/dist/pixi-sound.js"></script>
 </head>
 
 <body>
-    <h1>あろは～</h1>
+    <h1>HELLO, PixiJS</h1>
     <script>
-        const app = new PIXI.Application();
+        const app = new PIXI.Application({ background: '#33aaff' });
         document.body.appendChild(app.view);
+
+        const container = new PIXI.Container();
+        app.stage.addChild(container);
+
+        PIXI.sound.add('MySoundTest', './Asset/sample.mp3');
+
+        const texture = PIXI.Texture.from('./Asset/sample.png');
+        for (let i = 0; i < 5; ++i)
+        {
+            const sprite = new PIXI.Sprite(texture);
+            sprite.x = (i % 5) * 100;
+            sprite.y = app.screen.height / 2 + i * 10.0;
+            container.addChild(sprite);
+        }
+
+        let elapsed = 0.0;
+        app.ticker.add((delta) => {
+            elapsed += delta;
+            container.x = 100.0 + Math.sin(elapsed / 50.0) * 100.0;
+            if (Math.floor(container.x) == 90.0)
+            {
+                PIXI.sound.play('MySoundTest');
+            }
+        });
+
     </script>
 </body>
 
