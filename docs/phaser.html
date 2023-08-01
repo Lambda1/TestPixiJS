@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HELLO, Phaser</title>
+    <!-- CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+</head>
+
+<body>
+    <h1>HELLO, Phaser</h1>
+    <script>
+        let config =
+        {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            backgroundColor: "#33aaff",
+            physics:
+            {
+                default: 'arcade',
+                arcade:
+                {
+                    gravity: { y: 5 },
+                    debug: false
+                }
+            },
+            scene:
+            {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+
+        let game = new Phaser.Game(config);
+
+        function preload()
+        {
+            this.load.image('robot', './Asset/sample.png');
+        }
+        function create()
+        {
+            player = this.physics.add.sprite(400, 300, 'robot');
+        }
+        function update()
+        {
+        }
+    </script>
+</body>
+
+</html>
